@@ -3,7 +3,6 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import (
     mean_absolute_error,
-    mean_squared_error,
     root_mean_squared_error,
     r2_score,
 )
