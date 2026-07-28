@@ -1,6 +1,6 @@
-import joblib
 from pathlib import Path
 
+import joblib
 from data_preprocessing import load_vendor_invoice_data, prepare_feature, split_data
 from model_evaluation import (
     evaluate_model,
@@ -12,7 +12,7 @@ from model_evaluation import (
 
 def main():
     db_path = "../data/inventory.db"
-    model_dir = Path("models")
+    model_dir = Path(__file__).resolve().parents[1] / "models"
     model_dir.mkdir(parents=True, exist_ok=True)
 
     # Load data
