@@ -36,7 +36,7 @@ def predict_freight_cost(input_data):
     model = load_model()
     input_df = pd.DataFrame(input_data)
     input_df["Predicted_Freight"] = model.predict(input_df).round()
-    return input_df
+    return input_df["Predicted_Freight"].tolist()
 
 
 if __name__ == "__main__":
