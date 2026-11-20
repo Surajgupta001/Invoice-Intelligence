@@ -47,10 +47,10 @@ A machine-learning-powered invoice analytics application built with **Python**, 
 
 Invoice Intelligence is a Streamlit web application that demonstrates how machine learning can support invoice processing. It separates the workflow into two independent ML tasks:
 
-| Module | ML task | Model used by the training pipeline | Prediction |
-|---|---|---|---|
-| Freight Cost Prediction | Regression | Best of Linear Regression, Decision Tree Regressor, and Random Forest Regressor (selected by lowest MAE) | A continuous freight-cost estimate |
-| Invoice Risk Assessment | Binary classification | Random Forest Classifier tuned with GridSearchCV | Class 0 or Class 1 |
+| Module                  | ML task               | Model used by the training pipeline                                                                      | Prediction                         |
+| ----------------------- | --------------------- | -------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| Freight Cost Prediction | Regression            | Best of Linear Regression, Decision Tree Regressor, and Random Forest Regressor (selected by lowest MAE) | A continuous freight-cost estimate |
+| Invoice Risk Assessment | Binary classification | Random Forest Classifier tuned with GridSearchCV                                                         | Class 0 or Class 1                 |
 
 The application loads previously trained model artifacts from the `models/` directory. It does **not** train models every time a user opens the dashboard.
 
@@ -158,20 +158,20 @@ sequenceDiagram
 
 ## 🧰 Technology Stack
 
-| Technology | Role in this project |
-|---|---|
-| Python 3.11+ | Main programming language |
-| Streamlit | Interactive web application |
-| Pandas | Data extraction, tabular transformation, and input DataFrames |
-| NumPy | Numerical computing dependency |
-| SQLite | Local relational database used for training data |
-| Scikit-learn | Regression, classification, preprocessing, model selection, and evaluation |
-| Joblib | Saving and loading trained estimators and scaler |
-| Matplotlib / Seaborn | Exploratory data analysis and notebook visualizations |
-| Plotly | Visualization library included in project dependencies |
-| Jupyter / IPython | Notebook-based exploration and experiments |
-| SciPy | Scientific-computing dependency |
-| uv | Environment and dependency management (recommended) |
+| Technology           | Role in this project                                                       |
+| -------------------- | -------------------------------------------------------------------------- |
+| Python 3.11+         | Main programming language                                                  |
+| Streamlit            | Interactive web application                                                |
+| Pandas               | Data extraction, tabular transformation, and input DataFrames              |
+| NumPy                | Numerical computing dependency                                             |
+| SQLite               | Local relational database used for training data                           |
+| Scikit-learn         | Regression, classification, preprocessing, model selection, and evaluation |
+| Joblib               | Saving and loading trained estimators and scaler                           |
+| Matplotlib / Seaborn | Exploratory data analysis and notebook visualizations                      |
+| Plotly               | Visualization library included in project dependencies                     |
+| Jupyter / IPython    | Notebook-based exploration and experiments                                 |
+| SciPy                | Scientific-computing dependency                                            |
+| uv                   | Environment and dependency management (recommended)                        |
 
 ## 📁 Repository Structure
 
@@ -216,22 +216,22 @@ Invoice-Intelligence/
 
 ### Important files
 
-| File | Responsibility |
-|---|---|
-| `app.py` | Streamlit page configuration, navigation, forms, calls to inference functions, and result display |
-| `Predicting Freight Cost/data_preprocessing.py` | Reads `vendor_invoice`, selects `Dollars` as X and `Freight` as y, and splits data |
-| `Predicting Freight Cost/model_evaluation.py` | Trains and evaluates the three regression algorithms |
-| `Predicting Freight Cost/train.py` | Runs the freight training workflow and saves the lowest-MAE model |
-| `Invoice Flagging/data_preprocessing.py` | Joins invoice and purchase summaries, creates target labels, splits data, and scales features |
-| `Invoice Flagging/model_evaluation.py` | Defines Random Forest GridSearchCV and classifier evaluation |
-| `Invoice Flagging/train.py` | Runs classification training and saves the classifier and scaler |
-| `Inference/predict_freight.py` | Loads the freight model and returns freight predictions |
-| `Inference/predict_invoice_flag.py` | Loads the classifier and scaler, validates required inputs, and returns invoice flags |
-| `models/` | Stores serialized model and preprocessing artifacts |
-| `notebooks/` | Contains exploratory analysis and model experiments |
-| `data/inventory.db` | SQLite source database expected by the training scripts |
-| `pyproject.toml` | Python project metadata and dependencies |
-| `uv.lock` | Locked dependency resolution, when present |
+| File                                            | Responsibility                                                                                    |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `app.py`                                        | Streamlit page configuration, navigation, forms, calls to inference functions, and result display |
+| `Predicting Freight Cost/data_preprocessing.py` | Reads `vendor_invoice`, selects `Dollars` as X and `Freight` as y, and splits data                |
+| `Predicting Freight Cost/model_evaluation.py`   | Trains and evaluates the three regression algorithms                                              |
+| `Predicting Freight Cost/train.py`              | Runs the freight training workflow and saves the lowest-MAE model                                 |
+| `Invoice Flagging/data_preprocessing.py`        | Joins invoice and purchase summaries, creates target labels, splits data, and scales features     |
+| `Invoice Flagging/model_evaluation.py`          | Defines Random Forest GridSearchCV and classifier evaluation                                      |
+| `Invoice Flagging/train.py`                     | Runs classification training and saves the classifier and scaler                                  |
+| `Inference/predict_freight.py`                  | Loads the freight model and returns freight predictions                                           |
+| `Inference/predict_invoice_flag.py`             | Loads the classifier and scaler, validates required inputs, and returns invoice flags             |
+| `models/`                                       | Stores serialized model and preprocessing artifacts                                               |
+| `notebooks/`                                    | Contains exploratory analysis and model experiments                                               |
+| `data/inventory.db`                             | SQLite source database expected by the training scripts                                           |
+| `pyproject.toml`                                | Python project metadata and dependencies                                                          |
+| `uv.lock`                                       | Locked dependency resolution, when present                                                        |
 
 ## 🗃️ Dataset and Data Model
 
@@ -244,21 +244,21 @@ The SQL in the project expects two tables:
 
 ### Important source fields
 
-| Table | Field | Usage |
-|---|---|---|
-| `vendor_invoice` | `PONumber` | Connects an invoice to its purchase order |
-| `vendor_invoice` | `Quantity` | Invoice quantity |
-| `vendor_invoice` | `Dollars` | Invoice amount |
-| `vendor_invoice` | `Freight` | Regression target and classifier input |
-| `vendor_invoice` | `InvoiceDate` | Used to calculate PO-to-invoice duration |
-| `vendor_invoice` | `PODate` | Purchase-order date |
-| `vendor_invoice` | `PayDate` | Used to calculate invoice-to-payment duration |
-| `purchases` | `PONumber` | Groups purchase rows by purchase order |
-| `purchases` | `Brand` | Used to count distinct brands |
-| `purchases` | `Quantity` | Used to aggregate ordered item quantity |
-| `purchases` | `Dollars` | Used to aggregate item-level amount |
-| `purchases` | `ReceivingDate` | Used to calculate receiving delay |
-| `purchases` | `PODate` | Used with receiving date to calculate delay |
+| Table            | Field           | Usage                                         |
+| ---------------- | --------------- | --------------------------------------------- |
+| `vendor_invoice` | `PONumber`      | Connects an invoice to its purchase order     |
+| `vendor_invoice` | `Quantity`      | Invoice quantity                              |
+| `vendor_invoice` | `Dollars`       | Invoice amount                                |
+| `vendor_invoice` | `Freight`       | Regression target and classifier input        |
+| `vendor_invoice` | `InvoiceDate`   | Used to calculate PO-to-invoice duration      |
+| `vendor_invoice` | `PODate`        | Purchase-order date                           |
+| `vendor_invoice` | `PayDate`       | Used to calculate invoice-to-payment duration |
+| `purchases`      | `PONumber`      | Groups purchase rows by purchase order        |
+| `purchases`      | `Brand`         | Used to count distinct brands                 |
+| `purchases`      | `Quantity`      | Used to aggregate ordered item quantity       |
+| `purchases`      | `Dollars`       | Used to aggregate item-level amount           |
+| `purchases`      | `ReceivingDate` | Used to calculate receiving delay             |
+| `purchases`      | `PODate`        | Used with receiving date to calculate delay   |
 
 ### Data extraction and purchase aggregation
 
@@ -358,17 +358,17 @@ flowchart TD
 
 ### Candidate algorithms
 
-| Algorithm | Description |
-|---|---|
-| Linear Regression | Fits a linear relationship between invoice amount and freight |
-| Decision Tree Regressor | Learns threshold-based splits to predict a continuous value |
-| Random Forest Regressor | Combines predictions from multiple decision trees |
+| Algorithm               | Description                                                   |
+| ----------------------- | ------------------------------------------------------------- |
+| Linear Regression       | Fits a linear relationship between invoice amount and freight |
+| Decision Tree Regressor | Learns threshold-based splits to predict a continuous value   |
+| Random Forest Regressor | Combines predictions from multiple decision trees             |
 
 The current training script chooses the candidate with the **lowest MAE**. The selected model is not hard-coded to always be Linear Regression; it is determined when the training script runs.
 
 ### Regression evaluation metrics
 
-Let (y_i) be the actual freight value, \hat{y}_i the predicted value, and (n) the number of test samples.
+Let (y_i) be the actual freight value, \hat{y}\_i the predicted value, and (n) the number of test samples.
 
 **Mean Absolute Error (MAE)**
 
@@ -405,10 +405,10 @@ The model returns a predicted freight value, which the dashboard displays as an 
 
 Classify an invoice into one of two model-defined outcomes:
 
-| Encoded label | Dashboard message | Interpretation |
-|---|---|---|
-| `0` | Invoice Approved / Low Risk | The classifier did not flag the invoice |
-| `1` | Manual Approval Required / High Risk | The classifier flagged the invoice for review |
+| Encoded label | Dashboard message                    | Interpretation                                |
+| ------------- | ------------------------------------ | --------------------------------------------- |
+| `0`           | Invoice Approved / Low Risk          | The classifier did not flag the invoice       |
+| `1`           | Manual Approval Required / High Risk | The classifier flagged the invoice for review |
 
 This is a **binary classification** task. The output is a screening recommendation, not proof that an invoice is fraudulent.
 
@@ -498,13 +498,13 @@ The classifier is an ensemble of decision trees. Each tree produces a class pred
 
 The project uses `RandomForestClassifier` and tunes these hyperparameters:
 
-| Hyperparameter | Values explored | Meaning |
-|---|---|---|
-| `n_estimators` | 100, 200, 300 | Number of trees |
-| `max_depth` | None, 4, 5, 6 | Maximum depth of each tree |
-| `min_samples_split` | 2, 3, 5 | Minimum samples needed to split a node |
-| `min_samples_leaf` | 1, 2, 5 | Minimum samples allowed in a leaf |
-| `criterion` | gini, entropy | Split-quality measure |
+| Hyperparameter      | Values explored | Meaning                                |
+| ------------------- | --------------- | -------------------------------------- |
+| `n_estimators`      | 100, 200, 300   | Number of trees                        |
+| `max_depth`         | None, 4, 5, 6   | Maximum depth of each tree             |
+| `min_samples_split` | 2, 3, 5         | Minimum samples needed to split a node |
+| `min_samples_leaf`  | 1, 2, 5         | Minimum samples allowed in a leaf      |
+| `criterion`         | gini, entropy   | Split-quality measure                  |
 
 The current grid contains 216 parameter combinations. With 5-fold cross-validation, GridSearchCV evaluates 1,080 model fits before refitting the best configuration on the full training partition.
 
@@ -541,15 +541,15 @@ flowchart TD
 
 The project separates model development from model serving.
 
-| Stage | Freight workflow | Invoice-risk workflow |
-|---|---|---|
-| Data source | `vendor_invoice` | `vendor_invoice` joined with aggregated `purchases` |
-| Target | `Freight` | `flag_invoice` |
-| Features | `Dollars` | Five features listed above |
-| Split | 80/20, random state 42 | 80/20, random state 42 |
-| Candidate/model | Three regressors; lowest MAE selected | Random Forest with GridSearchCV |
-| Evaluation | MAE, RMSE, R² | Accuracy, classification report, confusion matrix, F1 |
-| Artifacts | Freight estimator | Classifier and StandardScaler |
+| Stage           | Freight workflow                      | Invoice-risk workflow                                 |
+| --------------- | ------------------------------------- | ----------------------------------------------------- |
+| Data source     | `vendor_invoice`                      | `vendor_invoice` joined with aggregated `purchases`   |
+| Target          | `Freight`                             | `flag_invoice`                                        |
+| Features        | `Dollars`                             | Five features listed above                            |
+| Split           | 80/20, random state 42                | 80/20, random state 42                                |
+| Candidate/model | Three regressors; lowest MAE selected | Random Forest with GridSearchCV                       |
+| Evaluation      | MAE, RMSE, R²                         | Accuracy, classification report, confusion matrix, F1 |
+| Artifacts       | Freight estimator                     | Classifier and StandardScaler                         |
 
 ### Reproducing evaluation
 
@@ -727,32 +727,32 @@ models/
 
 ### Freight Cost Prediction
 
-| Input | Type | Used by model? | Notes |
-|---|---|---:|---|
-| Quantity | Positive integer | No, not currently | Collected for display in the current form |
-| Invoice Amount (`Dollars`) | Numeric | Yes | Sole feature used by the current freight model |
+| Input                      | Type             |    Used by model? | Notes                                          |
+| -------------------------- | ---------------- | ----------------: | ---------------------------------------------- |
+| Quantity                   | Positive integer | No, not currently | Collected for display in the current form      |
+| Invoice Amount (`Dollars`) | Numeric          |               Yes | Sole feature used by the current freight model |
 
 **Output:** rounded estimated freight cost.
 
 ### Invoice Risk Assessment
 
-| Input | Type | Used by model? |
-|---|---|---:|
-| Invoice Quantity (`invoice_quantity`) | Numeric | Yes |
-| Invoice Amount (`invoice_dollars`) | Numeric | Yes |
-| Freight (`Freight`) | Numeric | Yes |
-| Total Item Quantity (`total_item_quantity`) | Numeric | Yes |
-| Total Item Amount (`total_item_dollars`) | Numeric | Yes |
+| Input                                       | Type    | Used by model? |
+| ------------------------------------------- | ------- | -------------: |
+| Invoice Quantity (`invoice_quantity`)       | Numeric |            Yes |
+| Invoice Amount (`invoice_dollars`)          | Numeric |            Yes |
+| Freight (`Freight`)                         | Numeric |            Yes |
+| Total Item Quantity (`total_item_quantity`) | Numeric |            Yes |
+| Total Item Amount (`total_item_dollars`)    | Numeric |            Yes |
 
 **Output:** `Predicted_Invoice_Flag` with class `0` or `1`.
 
 ## 📦 Configuration and Model Artifacts
 
-| Artifact | Description |
-|---|---|
-| `predict_freight_cost_model.pkl` | Selected freight regression estimator |
-| `invoice_flagging_model.pkl` | Tuned Random Forest classifier |
-| `scaler.pkl` | Fitted StandardScaler used before classification |
+| Artifact                         | Description                                      |
+| -------------------------------- | ------------------------------------------------ |
+| `predict_freight_cost_model.pkl` | Selected freight regression estimator            |
+| `invoice_flagging_model.pkl`     | Tuned Random Forest classifier                   |
+| `scaler.pkl`                     | Fitted StandardScaler used before classification |
 
 The artifacts are loaded relative to the inference Python files, so keep the `models/` directory in the expected project location.
 
